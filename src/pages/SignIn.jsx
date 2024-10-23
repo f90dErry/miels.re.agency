@@ -1,7 +1,25 @@
-import React from 'react'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { ArrowRightIcon } from '../components/Icons'
 
 const SignIn = () => {
-  return <div>Sign In</div>
+  const [showPassword, setShowPassword] = useState(false)
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  })
+  const { email, password } = formData
+  const navigate = useNavigate()
+
+  return (
+    <>
+      <div className='pageContainer'>
+        <header>
+          <p className='pageHeader'>Welcome Back!</p>
+        </header>
+      </div>
+    </>
+  )
 }
 
 export default SignIn
