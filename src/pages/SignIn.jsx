@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ArrowRightIcon } from '../components/Icons'
+import visityIcon from '../assets/svg/visibilityIcon.svg'
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -36,7 +37,19 @@ const SignIn = () => {
               value={password}
               onChange={onchange}
             />
+
+            <img
+              src={visityIcon}
+              alt='Show Password'
+              className='showPassword'
+              onClick={() => setShowPassword((prevState) => !prevState)}
+            />
           </div>
+
+          <Link to='forgot-password' className='forgotPasswordLink'>
+            {' '}
+            Forgot Password{' '}
+          </Link>
         </form>
       </div>
     </>
