@@ -11,7 +11,13 @@ const SignIn = () => {
   })
   const { email, password } = formData
   const navigate = useNavigate()
-  const onChange = () => {}
+
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }))
+  }
 
   return (
     <>
@@ -26,7 +32,7 @@ const SignIn = () => {
             placeholder='Email'
             id='email'
             value={email}
-            onChange={onchange}
+            onChange={onChange}
           />
           <div className='passwordInputDiv'>
             <input
@@ -35,7 +41,7 @@ const SignIn = () => {
               placeholder='Password'
               id='password'
               value={password}
-              onChange={onchange}
+              onChange={onChange}
             />
 
             <img
@@ -47,10 +53,22 @@ const SignIn = () => {
           </div>
 
           <Link to='forgot-password' className='forgotPasswordLink'>
-            {' '}
-            Forgot Password{' '}
+            Forgot Password
           </Link>
+
+          <div className='signInBar'>
+            <p className='signInText'>Sign In</p>
+            <button className='signInButton'>
+              <ArrowRightIcon fill='white' width='34px' height='34px' />
+            </button>
+          </div>
         </form>
+
+        {/* Google OAuth */}
+
+        <Link to='/sign-up' className='registerLink'>
+          Sign Up Instead
+        </Link>
       </div>
     </>
   )
