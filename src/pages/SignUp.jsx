@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ArrowRightIcon } from '../components/Icons'
 import visityIcon from '../assets/svg/visibilityIcon.svg'
+import { toast } from 'react-toastify'
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -52,7 +53,7 @@ const SignUp = () => {
 
       navigate('/')
     } catch (error) {
-      console.log(error)
+      toast.error('Something went wrong')
     }
   }
 
