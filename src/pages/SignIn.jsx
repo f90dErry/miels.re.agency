@@ -34,6 +34,7 @@ const SignIn = () => {
 
       if (userCredential.user) {
         navigate('/profile ')
+        toast('login sucessful')
       }
     } catch (error) {
       toast.error('Wrong login credentials')
