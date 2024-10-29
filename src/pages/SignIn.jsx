@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { ArrowRightIcon } from '../components/Icons'
 import visityIcon from '../assets/svg/visibilityIcon.svg'
 
@@ -18,6 +19,25 @@ const SignIn = () => {
       [e.target.id]: e.target.value,
     }))
   }
+  const onSubmit = async (e) => {
+    e.preventDefault()
+
+    try {
+      const auth = getAuth()
+
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      )
+
+      if (userCredential.user) {
+        navigate('/profile ')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <>
@@ -25,7 +45,8 @@ const SignIn = () => {
         <header>
           <p className='pageHeader'>Welcome Back!</p>
         </header>
-        <form>
+
+        <form onSubmit={onSubmit}>
           <input
             type='email'
             className='emailInput'
