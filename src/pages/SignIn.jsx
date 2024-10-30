@@ -33,7 +33,7 @@ const SignIn = () => {
       )
 
       if (userCredential.user) {
-        navigate('/profile ')
+        navigate('/')
         toast('login sucessful')
       }
     } catch (error) {
