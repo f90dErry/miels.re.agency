@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { ArrowRightIcon } from '../components/Icons'
 import visityIcon from '../assets/svg/visibilityIcon.svg'
 import { toast } from 'react-toastify'
+import OAuth from '../components/OAuth'
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -111,7 +112,7 @@ const SignUp = () => {
           </div>
         </form>
 
-        {/* Google OAuth */}
+        <OAuth />
 
         <Link to='/sign-in' className='registerLink'>
           Sign In Instead
