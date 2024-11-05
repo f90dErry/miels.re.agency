@@ -27,6 +27,10 @@ const ListingItem = ({ listing, id }) => {
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
             {listing.type === 'rent' && ' / month'}
           </p>
+          <div className='categoryListingDiv'>
+            {/* Bed Icon */}
+            <BedIcon />
+          </div>
         </div>
       </Link>
     </li>
