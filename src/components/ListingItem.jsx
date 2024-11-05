@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import { DeleteIcon, BedIcon } from './Icons'
+import { BathIcon, BedIcon, DeleteIcon } from './Icons'
 
-const ListingItem = ({ listing, id }) => {
+const ListingItem = ({ listing, id, onDelete }) => {
   return (
     <li className='categoryListing'>
       <Link
@@ -27,12 +27,31 @@ const ListingItem = ({ listing, id }) => {
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
             {listing.type === 'rent' && ' / month'}
           </p>
-          <div className='categoryListingDiv'>
+          <div className='categoryListingInfoDiv'>
             {/* Bed Icon */}
             <BedIcon />
+            <p className='categoryListingInfoText'>
+              {listing.bedrooms > 1
+                ? `${listing.bedrooms} Bedrooms`
+                : '1 Bedroom'}
+            </p>
+            <BathIcon />
+            <p className='categoryListingInfoText'>
+              {listing.bathrooms > 1
+                ? `${listing.bathrooms} Bathrooms`
+                : '1 Bathroom'}
+            </p>
           </div>
         </div>
       </Link>
+
+      {onDelete && (
+        <DeleteIcon
+          className='removeIcon'
+          fill='rgb(231, 76, 60)'
+          onclick={() => onDelete(listing.id, listing.name)}
+        />
+      )}
     </li>
   )
 }
