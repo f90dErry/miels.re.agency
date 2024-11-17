@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import Spinner from '../components/Spinner'
+import { toast } from 'react-toastify'
 
 const CreateListing = () => {
   const [geolocationEnabled, setGeolocationEnabled] = useState(true)
@@ -60,7 +61,18 @@ const CreateListing = () => {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    console.log(formData)
+    setLoading(true)
+
+    if (discountedPrice >= regularPrice) {
+      setLoading(false)
+      toast.error('Discounted price cannot be more than regular price')
+      return
+    }
+    if (images.length > 8) {
+      setLoading(false)
+      toast.error('Up to 8 images max')
+      return
+    }
   }
 
   const onMutate = (e) => {
