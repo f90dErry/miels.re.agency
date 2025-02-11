@@ -30,9 +30,9 @@ const Offers = () => {
         //Create a query
         const q = query(
           listingsRef,
-          where('offer', '==', true),
-          orderBy('timestamp', 'desc'),
-          limit(10)
+          where('offer', '==', true)
+          // orderBy('timestamp', 'desc'),
+          // limit(10)
         )
 
         // Execute Query

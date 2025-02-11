@@ -20,6 +20,7 @@ const Category = () => {
   const [loading, setLoading] = useState(true)
 
   const params = useParams()
+  console.log(params)
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -30,9 +31,9 @@ const Category = () => {
         //Create a query
         const q = query(
           listingsRef,
-          where('type', '==', params.categoryName),
-          orderBy('timestamp', 'desc'),
-          limit(10)
+          where('type', '==', params.categoryName)
+          // orderBy('timestamp', 'desc'),
+          // limit(10)
         )
 
         // Execute Query
@@ -46,11 +47,13 @@ const Category = () => {
             data: doc.data(),
           })
         })
+        console.log(listings)
 
         setListings(listings)
         setLoading(false)
       } catch (error) {
         toast.error('something went wrong')
+        setLoading(false)
       }
     }
 

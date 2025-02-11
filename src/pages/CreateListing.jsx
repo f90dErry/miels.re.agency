@@ -17,7 +17,7 @@ const CreateListing = () => {
   const [geolocationEnabled, setGeolocationEnabled] = useState(true)
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
-    type: 'rent',
+    type: 'sale',
     name: '',
     bedrooms: 1,
     bathrooms: 1,
@@ -88,7 +88,9 @@ const CreateListing = () => {
 
     if (geolocationEnabled) {
       const response = await fetch(
-        `https://maps.googleapis.com/map/api/geocode/json?/address=${address}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${
+          import.meta.env.VITE_GEOCODE_API_KEY
+        }`
       )
 
       const data = await response.json()
@@ -159,12 +161,13 @@ const CreateListing = () => {
     const formDataCopy = {
       ...formData,
       imgUrls,
+      geolocation,
       timeStamp: serverTimestamp(),
     }
-
+    console.log(formDataCopy)
     delete formDataCopy.images
     delete formDataCopy.address
-    //location && (formDataCopy.location = location)
+    location && (formDataCopy.location = location)
     !formDataCopy.offer && delete formDataCopy.discountedPrice
 
     const docRef = await addDoc(collection(db, 'listings'), formDataCopy)
