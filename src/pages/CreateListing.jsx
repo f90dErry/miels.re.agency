@@ -82,29 +82,29 @@ const CreateListing = () => {
       return
     }
 
-    // let geolocation = {}
-    // let location
+    //  let geolocation = {}
+    //  let location
 
-    // if (geolocationEnabled) {
-    //   const response = await fetch(
-    //     `https:maps.googleapis.com/map/api/geocode/jason`
-    //   )
+    //  if (geolocationEnabled) {
+    //    const response = await fetch(
+    //      `https:maps.googleapis.com/map/api/geocode/jason`
+    //    )
 
-    //   const data = await response.json()
-    //   console.log(data)
-    // } else {
-    //   geolocation.lat = latitude
-    //   geolocation.lng = longitude
+    //    const data = await response.json()
+    //    console.log(data)
+    //  } else {
+    //    geolocation.lat = latitude
+    //    geolocation.lng = longitude
     //   location = address
     // }
 
     // store images in firebase
     const storeImage = async (image) => {
-      return new promise((resolve, reject) => {
+      return new Promise((resolve, reject) => {
         const storage = getStorage()
-        const filenName = `${auth.currentUser.uid}-${image.name}-${uuidv4()}`
+        const fileName = `${auth.currentUser.uid}-${image.name}-${uuidv4()}`
 
-        const storageRef = ref(storage, 'images/' + filenName)
+        const storageRef = ref(storage, 'images/' + fileName)
 
         const uploadTask = uploadBytesResumable(storageRef, image)
 
@@ -139,7 +139,7 @@ const CreateListing = () => {
       [...images].map((image) => storeImage(image))
     ).catch(() => {
       setLoading(false)
-      toast.error('Uploading images failed')
+      toast.error('Image upload failed')
       return
     })
 
@@ -411,7 +411,7 @@ const CreateListing = () => {
             multiple
             required
             max='8'
-            onClick={onMutate}
+            onChange={onMutate}
           />
           <button type='submit' className='primaryButton createListingButton'>
             Create listing
