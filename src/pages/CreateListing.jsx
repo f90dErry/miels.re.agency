@@ -6,6 +6,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from 'firebase/storage'
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { v4 as uuidv4 } from 'uuid'
 import { db } from '../firebase.config'
 import { useNavigate } from 'react-router-dom'
@@ -82,21 +83,33 @@ const CreateListing = () => {
       return
     }
 
-    //  let geolocation = {}
-    //  let location
+    let geolocation = {}
+    let location
 
-    //  if (geolocationEnabled) {
-    //    const response = await fetch(
-    //      `https:maps.googleapis.com/map/api/geocode/jason`
-    //    )
+    if (geolocationEnabled) {
+      const response = await fetch(
+        `https://maps.googleapis.com/map/api/geocode/json?/address=${address}&key=AIzaSyAv8PC0MlumIGNedVlBKKPtwTLQuQMR5CA`
+      )
 
-    //    const data = await response.json()
-    //    console.log(data)
-    //  } else {
-    //    geolocation.lat = latitude
-    //    geolocation.lng = longitude
-    //   location = address
-    // }
+      const data = await response.json()
+      geolocation.lat = data.results[0]?.geometry.location.lat ?? 0
+      geolocation.lng = data.results[0]?.geometry.location.lng ?? 0
+
+      location =
+        data.status === 'ZERO_RESULTS'
+          ? undefined
+          : data.results[0]?.formatted_address
+
+      if (location === undefined || location.includes('undefined')) {
+        setLoading(false)
+        toast.error('Incorrect address')
+        return
+      }
+    } else {
+      geolocation.lat = latitude
+      geolocation.lng = longitude
+      location = address
+    }
 
     // store images in firebase
     const storeImage = async (image) => {
@@ -143,9 +156,21 @@ const CreateListing = () => {
       return
     })
 
-    console.log(imgUrls)
+    const formDataCopy = {
+      ...formData,
+      imgUrls,
+      timeStamp: serverTimestamp(),
+    }
 
+    delete formDataCopy.images
+    delete formDataCopy.address
+    //location && (formDataCopy.location = location)
+    !formDataCopy.offer && delete formDataCopy.discountedPrice
+
+    const docRef = await addDoc(collection(db, 'listings'), formDataCopy)
     setLoading(false)
+    toast.success('Listing Created Successfully')
+    navigate(`/category/${formDataCopy.type}/${docRef.id}`)
   }
 
   const onMutate = (e) => {
