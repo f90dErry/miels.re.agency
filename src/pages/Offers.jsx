@@ -51,6 +51,7 @@ const Offers = () => {
         setLoading(false)
       } catch (error) {
         toast.error('something went wrong')
+        setLoading(false)
       }
     }
 

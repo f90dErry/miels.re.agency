@@ -54,6 +54,7 @@ const Category = () => {
       } catch (error) {
         toast.error('something went wrong')
         setLoading(false)
+        console.log(error)
       }
     }
 
