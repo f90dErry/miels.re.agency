@@ -84,9 +84,14 @@ const Profile = () => {
     }))
   }
 
-  const onDelete = async (listingID) => {
-    if (window.confirm('Are you sure you want to delete this listing?')) {
-      await deleteDoc(doc(db, 'listings', listingID))
+  const onDelete = async (listingId) => {
+    if (window.confirm('Are you sure you want to delete?')) {
+      await deleteDoc(doc(db, 'listings', listingId))
+      const updatedListings = listings.filter(
+        (listing) => listing.id !== listingId
+      )
+      setListings(updatedListings)
+      toast.success('Successfully deleted listing')
     }
   }
 
@@ -101,7 +106,7 @@ const Profile = () => {
 
       <main>
         <div className='profileDetailsHeader'>
-          <p className='profileDetailsText'>Details</p>
+          <p className='profileDetailsText'>Personal Details</p>
           <p
             className='changePersonalDetails'
             onClick={() => {
@@ -150,6 +155,7 @@ const Profile = () => {
                   listing={listing.data}
                   id={listing.id}
                   onDelete={() => onDelete(listing.id)}
+                  //onEdit={() => onEdit(listing.id)}
                 />
               ))}
             </ul>
