@@ -112,11 +112,11 @@ export const DeleteIcon = ({ onDelete }) => {
     <button type='button'>
       <svg
         xmlns='http://www.w3.org/2000/svg'
-        width='24'
-        height='24'
+        width='20'
+        height='20'
         viewBox='0 0 24 24'
         onClick={onDelete}
-        fill='red'
+        fill='rgb(231, 76, 60)'
       >
         <path fill='none' d='M0 0h24v24H0z'></path>
         <path d='M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z'></path>
@@ -179,8 +179,8 @@ export const EditIcon = ({ onEdit }) => (
   <button type='button'>
     <svg
       xmlns='http://www.w3.org/2000/svg'
-      width='24'
-      height='24'
+      width='20'
+      height='20'
       viewBox='0 0 24 24'
       onClick={onEdit}
     >
