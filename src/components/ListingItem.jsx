@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import { BathIcon, BedIcon, DeleteIcon } from './Icons'
+import { BathIcon, BedIcon, DeleteIcon, EditIcon } from './Icons'
 
-const ListingItem = ({ listing, id, onDelete }) => {
+const ListingItem = ({ listing, id, onDelete, onEdit }) => {
   return (
     <li className='categoryListing'>
       <Link
@@ -52,6 +52,8 @@ const ListingItem = ({ listing, id, onDelete }) => {
           onclick={() => onDelete(listing.id, listing.name)}
         />
       )}
+
+      {onEdit && <EditIcon className='editIcon' onclick={() => onEdit(id)} />}
     </li>
   )
 }
