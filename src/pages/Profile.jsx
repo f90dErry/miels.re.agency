@@ -85,7 +85,7 @@ const Profile = () => {
   }
 
   const onDelete = async (listingId) => {
-    if (window.confirm('Are you sure you want to delete?')) {
+    if (window.confirm('Are you sure you want to delete this listing?')) {
       await deleteDoc(doc(db, 'listings', listingId))
       const updatedListings = listings.filter(
         (listing) => listing.id !== listingId
@@ -155,7 +155,8 @@ const Profile = () => {
                   listing={listing.data}
                   id={listing.id}
                   onDelete={() => onDelete(listing.id)}
-                  //onEdit={() => onEdit(listing.id)}
+                  onClick={() => onDelete(listing.id)}
+                  // onEdit={() => onEdit(listing.id)}
                 />
               ))}
             </ul>
